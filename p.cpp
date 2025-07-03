@@ -12,7 +12,11 @@ void dk(void(*s)(int,int),int n)
 			s(5,2+k);
 	}
 }
+void s(int p,int d)
+{
+	printf("%d,%d\n",p,d);
+}
 int main()
 {
-	
+	dk(s,9);
 }
