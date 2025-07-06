@@ -1,6 +1,7 @@
 #include<cstdio>
 #include"pd.h"
 #include<string.h>
+#include<iostream>
 void dk(void(*s)(int,int,bool),int n)
 {
 	int pn=n%5;
@@ -42,7 +43,12 @@ int main()
 			if(0)printf("%d %d %d\n",v[0],v[1],v[2]);
 			memcpy(&c[k*width*3+pk*3],v,3);
 		}
-	for(size_t k=0;k<1000;k++)
+	size_t ps=0;
+	int k=0;
+	double kn=0;
+	bool nc=0;
+	std::cin>>ps;
+	while(1)
 	{
 		int ks=k;
 		for(int n=0;n<5;n++)
@@ -55,5 +61,17 @@ int main()
 		char *n=c+width*height*3;
 		while(d<n)
 			d+=fwrite(d,1,n-d,stdout);
+		kn+=0.1;
+		if((kn-1.0)*44100.0>ps)
+		{
+			k++;
+			if(nc)break;
+			std::cin>>ps;
+			if(std::cin.eof())
+			{
+				ps=44100.0*(5.0+kn);
+				nc=1;
+			}
+		}
 	}
 }
