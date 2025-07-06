@@ -1,4 +1,6 @@
 #include<cstdio>
+#include"pd.h"
+#include<string.h>
 void dk(void(*s)(int,int),int n)
 {
 	int pn=n%5;
@@ -18,5 +20,21 @@ void s(int p,int d)
 }
 int main()
 {
-	dk(s,9);
+	if(0)dk(s,9);
+	char c[width*height*3];
+	for(int k=0;k<height;k++)
+		for(int pk=0;pk<width;pk++)
+		{
+			char v[3];
+			HEADER_PIXEL(header_data,v);
+			if(0)printf("%d %d %d\n",v[0],v[1],v[2]);
+			memcpy(&c[k*width*3+pk*3],v,3);
+		}
+	if(1)while(1)
+	{
+		char *d=c;
+		char *n=c+width*height*3;
+		while(d<n)
+			d+=fwrite(d,1,n-d,stdout);
+	}
 }
