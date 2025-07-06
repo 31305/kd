@@ -1,27 +1,39 @@
 #include<cstdio>
 #include"pd.h"
 #include<string.h>
-void dk(void(*s)(int,int),int n)
+void dk(void(*s)(int,int,bool),int n)
 {
 	int pn=n%5;
-	if(pn>=1)s(3,3);
-	if(pn>=2)s(3,5);
-	if(pn>=3)s(1,3);
-	if(pn>=4)s(1,5);
-	if(n>=5)
-	{
-		for(int k=0;k<5;k++)
-			s(5,2+k);
-	}
+	s(2,3,pn>=1);
+	s(4,3,pn>=2);
+	s(2,1,pn>=3);
+	s(4,1,pn>=4);
+	for(int k=0;k<5;k++)
+		s(1+k,5,n>=5);
 }
-void s(int p,int d)
+unsigned char* cs;
+int s1,s2=48;
+void s(int p,int d,bool s)
 {
-	printf("%d,%d\n",p,d);
+	size_t ms=(s2+d)*width*3+(s1+p)*3;
+	if(s)
+	{
+		cs[ms]=243;
+		cs[ms+1]=205;
+		cs[ms+2]=93;
+	}
+	else
+	{
+		cs[ms]=0;
+		cs[ms+1]=0;
+		cs[ms+2]=0;
+	}
 }
 int main()
 {
 	if(0)dk(s,9);
 	char c[width*height*3];
+	cs=(unsigned char*)c;
 	for(int k=0;k<height;k++)
 		for(int pk=0;pk<width;pk++)
 		{
@@ -30,8 +42,15 @@ int main()
 			if(0)printf("%d %d %d\n",v[0],v[1],v[2]);
 			memcpy(&c[k*width*3+pk*3],v,3);
 		}
-	if(1)while(1)
+	for(size_t k=0;k<1000;k++)
 	{
+		int ks=k;
+		for(int n=0;n<5;n++)
+		{
+			s1=48-8*n;
+			dk(s,ks%10);
+			ks/=10;
+		}
 		char *d=c;
 		char *n=c+width*height*3;
 		while(d<n)
